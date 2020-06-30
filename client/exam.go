@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"os/user"
-	"strconv"
 
 	"github.com/tadvi/winc"
 )
@@ -22,9 +21,7 @@ const (
 )
 
 type response struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Surname  string `json:"surname"`
+	Label    string `json:"label"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
@@ -87,11 +84,11 @@ func main() {
 	consolasFont := winc.NewFont("Consolas", 18, 0)
 	tohomaFont := winc.NewFont("Tahoma", 10, 0)
 
-	studentLabel := winc.NewLabel(mainWindow)
-	studentLabel.SetPos(10, 10)
-	studentLabel.SetSize(490, 30)
-	studentLabel.SetFont(consolasFont)
-	studentLabel.SetText(resContent.Name + " " + resContent.Surname + " " + strconv.Itoa(resContent.ID))
+	infoLabel := winc.NewLabel(mainWindow)
+	infoLabel.SetPos(10, 10)
+	infoLabel.SetSize(490, 30)
+	infoLabel.SetFont(consolasFont)
+	infoLabel.SetText(resContent.Label)
 
 	repositoryLabel := winc.NewLabel(mainWindow)
 	repositoryLabel.SetPos(10, 50)

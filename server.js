@@ -75,21 +75,27 @@ app.post('/auth', async (req, res) => {
     const clientAddress = req.headers['x-real-ip'] || req.connection.remoteAddress; // TODO
     if (!validateClientAddress(clientAddress)) {
         logAction(clientAddress, "ADDRESS");
-        res.sendStatus(403);
+        res.status(400).send(JSON.stringify({
+            label: "Invalid client address"
+        }));
         return;
     }
 
     // Check payload content
     if (!payload.username || !payload.hostname) {
         logAction(clientAddress, "PAYLOAD");
-        res.sendStatus(400);
+        res.status(400).send(JSON.stringify({
+            label: "Invalid message payload"
+        }));
         return;
     }
 
     // Check client signature
     if (!validateSignature(req.body, req.headers.signature)) {
         logAction(clientAddress, "SIGNATURE", payload.username, payload.hostname);
-        res.sendStatus(403);
+        res.status(403).send(JSON.stringify({
+            label: "Invalid message signature"
+        }));
         return;
     }
 
@@ -97,7 +103,9 @@ app.post('/auth', async (req, res) => {
     const exam_id = await getCurrentExamId();
     if (!exam_id) {
         logAction(clientAddress, "TIMESTAMP", payload.username, payload.hostname);
-        res.sendStatus(404);
+        res.status(404).send(JSON.stringify({
+            label: "Service currently unavailable"
+        }));
         return;
     }
 
@@ -111,16 +119,16 @@ app.post('/auth', async (req, res) => {
     });
     if (!username) {
         logAction(clientAddress, "USERNAME", payload.username, payload.hostname);
-        res.sendStatus(404);
+        res.status(404).send(JSON.stringify({
+            label: "Username not on record"
+        }));
         return;
     }
 
     logAction(clientAddress, "OK", payload.username, payload.hostname);
 
     res.send(JSON.stringify({
-        id: username.student_id,
-        name: username.name,
-        surname: username.surname,
+        label: username.name + " " + username.surname + " " + username.student_id,
         username: username.username,
         password: username.password
     }));
