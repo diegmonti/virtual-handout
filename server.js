@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const crypto = require('crypto');
@@ -58,7 +59,7 @@ async function logAction(address, information, username, hostname) {
 }
 
 app.get('/', async (req, res) => {
-    res.send("Ok");
+    res.download(path.join(__dirname + '/client/exam.exe'));
 });
 
 app.post('/auth', async (req, res) => {
