@@ -45,8 +45,14 @@ function validateClientAddress(address) {
 }
 
 function getStudentId(username) {
-    // TODO
-    return 123456;
+    const regex = /_(\d+)_/;
+    let m;
+
+    if ((m = regex.exec(username)) !== null) {
+        return m[1];
+    } else {
+        return -1;
+    }
 }
 
 async function logAction(address, information, username, hostname) {
