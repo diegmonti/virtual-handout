@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite:db.sqlite');
+const sequelize = new Sequelize('sqlite:data/db.sqlite');
 
 const Exam = sequelize.define('Exam', {
     exam_id: {
