@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
@@ -33,15 +35,14 @@ async function getCurrentExamId() {
 }
 
 function validateSignature(message, signature) {
-    const hmac = crypto.createHmac('sha256', 'yoursecretkeyhere');
+    const hmac = crypto.createHmac('sha256', process.env.SECRET);
     const data = hmac.update(message);
     const digest = data.digest('hex');
     return digest === signature;
 }
 
 function validateClientAddress(address) {
-    // TODO
-    return ipRangeCheck(address, ["::1"])
+    return ipRangeCheck(address, [process.env.IPRANGE])
 }
 
 function getStudentId(username) {
@@ -72,7 +73,7 @@ app.post('/auth', async (req, res) => {
     const payload = JSON.parse(req.body);
 
     // Check client address
-    const clientAddress = req.headers['x-real-ip'] || req.connection.remoteAddress; // TODO
+    const clientAddress = req.headers[process.env.HEADER] || req.connection.remoteAddress;
     if (!validateClientAddress(clientAddress)) {
         logAction(clientAddress, "ADDRESS");
         res.status(400).send(JSON.stringify({

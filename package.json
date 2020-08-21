@@ -11,10 +11,11 @@
   "author": "Diego Monti <diego.monti@polito.it>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ip-range-check": "^0.2.0",
     "morgan": "^1.10.0",
-    "sequelize": "^6.2.3",
+    "sequelize": "^6.3.4",
     "sqlite3": "^4.2.0"
   }
 }

@@ -14,11 +14,9 @@ import (
 	"github.com/tadvi/winc"
 )
 
-const (
-	server  = "http://localhost:3000/auth"
-	secret  = "yoursecretkeyhere"
-	baseURL = "http://oop.polito.it/svn/OOPExam/"
-)
+var server string
+var secret string
+var baseURL string
 
 type response struct {
 	Label    string `json:"label"`
