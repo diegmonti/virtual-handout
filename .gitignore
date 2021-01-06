@@ -2,3 +2,5 @@ node_modules/*
 *.exe
 *.sqlite
 .env
+client/obfuscator
+client/obfuscated.go

@@ -14,4 +14,6 @@ run:
 clean:
 	docker stop virtual-handout
 	docker rm virtual-handout
+	rm client/obfuscator
+	rm client/obfuscated.go
 	rm client/exam.exe

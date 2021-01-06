@@ -14,9 +14,9 @@ import (
 	"github.com/tadvi/winc"
 )
 
-var server string
-var secret string
-var baseURL string
+var server string = getServer()
+var secret string = getSecret()
+var baseURL string = getBaseURL()
 
 type response struct {
 	Label    string `json:"label"`

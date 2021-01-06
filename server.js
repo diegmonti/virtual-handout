@@ -52,7 +52,7 @@ function getStudentId(username) {
     if ((m = regex.exec(username)) !== null) {
         return m[1];
     } else {
-        return -1;
+        return username;
     }
 }
 
